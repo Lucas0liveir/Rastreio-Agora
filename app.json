@@ -1,10 +1,25 @@
 {
   "expo": {
-    "name": "app-rastreio",
-    "slug": "app-rastreio",
+    "name": "Rastreio Agora",
+    "slug": "app-rastreio-agora",
     "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "com.rastreioagora.app",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.rastreioagora.app"
+    },
     "assetBundlePatterns": [
       "**/*"
+    ],
+    "plugins": [
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ]
     ]
   }
 }

@@ -1,4 +1,4 @@
-package com.apprastreio.newarchitecture.components;
+package com.rastreioagora.app.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

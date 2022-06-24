@@ -1,9 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
 import React from "react";
 import { View } from "react-native";
 import { useTheme } from "styled-components";
 import { CardPackage } from "../../components/cardsPackage";
 import { Header } from "../../components/Header";
 import { SearchBar } from "../../components/SearchBar";
+import { StackScreensParams } from "../../routes/stack.routes";
 import {
     Container,
     ButtonWrapper,
@@ -12,14 +15,19 @@ import {
     Content
 } from './styles'
 
+type Props = StackScreenProps<StackScreensParams, 'Home'>;
 
-export function Home() {
+export function Home({ route, navigation }: Props) {
+   
+    function handleAddPackage() {
+        navigation.navigate('AddPackage')
+    }
 
     const theme = useTheme()
     return (
         <Container>
             <Header title="Minhas Encomendas" />
-                <SearchBar />
+            <SearchBar />
             <Content>
                 <CardPackage myPackage={
                     {
@@ -74,7 +82,9 @@ export function Home() {
                 } />
             </Content>
             <ButtonWrapper>
-                <ButtonAddPackage>
+                <ButtonAddPackage
+                    onPress={handleAddPackage}
+                >
                     <IconAddPackage
                         name={'add'}
                         size={35}

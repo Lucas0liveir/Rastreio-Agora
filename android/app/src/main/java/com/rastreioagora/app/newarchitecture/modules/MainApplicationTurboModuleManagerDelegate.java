@@ -1,4 +1,4 @@
-package com.apprastreio.newarchitecture.modules;
+package com.rastreioagora.app.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

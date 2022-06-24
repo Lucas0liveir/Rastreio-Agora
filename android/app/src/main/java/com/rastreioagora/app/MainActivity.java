@@ -1,4 +1,4 @@
-package com.apprastreio;
+package com.rastreioagora.app;
 
 import android.os.Build;
 import android.os.Bundle;

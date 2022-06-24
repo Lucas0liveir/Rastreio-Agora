@@ -1,5 +1,7 @@
 
-import React from 'react';
+import 'react-native-gesture-handler';
+import React, { useEffect } from 'react';
+import OneSignal from 'react-native-onesignal';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
 import AppLoading from 'expo-app-loading';
@@ -9,11 +11,16 @@ import {
   Poppins_500Medium,
   Poppins_700Bold
 } from '@expo-google-fonts/poppins'
-import { StatusBar, View } from 'react-native';
-import { Home } from './src/screens/Home';
-import { AddPackage } from './src/screens/AddPackage';
+import { StatusBar } from 'react-native';
+import { Routes } from './src/routes';
+
+const { ONESIGNALAPPID } = process.env
 
 export default function App() {
+
+  useEffect(() => {
+    OneSignal.setAppId(ONESIGNALAPPID);
+  }, [])
 
   const [fontsLoaded] = useFonts({
     Poppins_400Regular,
@@ -28,7 +35,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar barStyle='light-content' backgroundColor={'transparent'} />
-      <AddPackage />
+      <Routes />
     </ThemeProvider>
 
   )
