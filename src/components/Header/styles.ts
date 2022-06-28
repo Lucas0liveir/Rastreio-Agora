@@ -1,4 +1,4 @@
-import { RFPercentage } from "react-native-responsive-fontsize";
+import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 import { Feather } from '@expo/vector-icons'
 
@@ -13,7 +13,7 @@ export const Container = styled.View`
 
 `
 
-export const Content =  styled.View`
+export const Content = styled.View`
 
 `
 
@@ -25,10 +25,26 @@ export const Icon = styled<any>(Feather)`
 `
 
 export const Title = styled.Text`
+    padding-top: 10px;
     align-self: center;
-    padding-right: 10px;
     color: ${({ theme }) => theme.colors.shape};
     font-size: 18px;
     font-family: ${({ theme }) => theme.fonts.medium};
 
+`
+
+export const Subtitle = styled.Text`
+    align-self: center;
+    align-content: flex-start;
+    color: ${({ theme }) => theme.colors.shape};
+    font-size: ${RFValue(12)}px;
+    font-family: ${({ theme }) => theme.fonts.medium};
+`
+
+export const TextsWrapper = styled.View`
+
+`
+
+export const TitleWrapper = styled.View`
+    height: 30px;
 `

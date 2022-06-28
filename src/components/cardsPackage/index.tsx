@@ -1,4 +1,7 @@
 import React from "react";
+import { BorderlessButtonProps } from "react-native-gesture-handler";
+import { PackageDTO } from "../../dtos/PackageDTOS";
+import dayjs from "dayjs";
 import {
     Container,
     PackageName,
@@ -7,43 +10,61 @@ import {
     ContainerStatus,
     IconStatusRefer,
     IconStatusReceived,
+    ContainerDateInfo,
+    Content,
+    DateInfo,
+    DateHourInfo
 } from './styles'
 
-type Props = {
-    myPackage: any
+interface Props extends BorderlessButtonProps {
+    myPackage: PackageDTO
 }
 
-export function CardPackage({ myPackage }: Props) {
+export function CardPackage({ myPackage, ...rest }: Props) {
 
+    console.log(myPackage)
 
     return (
-        <Container>
-            <PackageName>
-                {myPackage.name}
-            </PackageName>
-            <ContainerStatus>
-                {String(myPackage.lastStatus).includes('entregue') ? (
-                    <IconStatusReceived
-                        name={'checkcircle'}
-                    />
-                ) : (
-                    <IconStatusRefer
-                        name='truck'
-                    />
-                )
+        <Container
+            {...rest}
+        >
+            <ContainerDateInfo>
+                <DateInfo>
+                    {dayjs(myPackage.eventos[0].dtHrCriado).format('DD/MM/YYYY')}
+                </DateInfo>
+                <DateHourInfo>
+                    {dayjs(myPackage.eventos[0].dtHrCriado).format('HH:mm:ss')}
+                </DateHourInfo>
+            </ContainerDateInfo>
+            <Content>
+                <PackageName>
+                    {myPackage.name}
+                </PackageName>
+                <ContainerStatus>
+                    {String(myPackage?.eventos[0]?.descricao).includes('entregue') ? (
+                        <IconStatusReceived
+                            name={'checkcircle'}
+                        />
+                    ) : (
+                        <IconStatusRefer
+                            name='truck'
+                        />
+                    )
 
-                }
+                    }
 
-                <PackageLastStatus
-                    type={String(myPackage.lastStatus).includes('entregue') ? 'sucess' : ''}
-                >
-                    {myPackage.lastStatus}
-                </PackageLastStatus>
-            </ContainerStatus>
+                    <PackageLastStatus
+                        type={String(myPackage.eventos[0].descricao).includes('entregue') ? 'sucess' : ''}
+                    >
+                        {myPackage.eventos[0].descricao}
+                    </PackageLastStatus>
+                </ContainerStatus>
 
-            <PackageCode>
-                {myPackage.trackCode}
-            </PackageCode>
+                <PackageCode>
+                    {myPackage.codObjeto}
+                </PackageCode>
+            </Content>
+
         </Container>
     )
 }

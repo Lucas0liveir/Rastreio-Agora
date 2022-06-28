@@ -13,10 +13,14 @@ import {
 } from '@expo-google-fonts/poppins'
 import { StatusBar } from 'react-native';
 import { Routes } from './src/routes';
+import { PackageProvider, usePackages } from './src/hooks/packages';
+import { Load } from './src/components/Load';
 
 const { ONESIGNALAPPID } = process.env
 
 export default function App() {
+
+  const { loading } = usePackages()
 
   useEffect(() => {
     OneSignal.setAppId(ONESIGNALAPPID);
@@ -34,8 +38,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar barStyle='light-content' backgroundColor={'transparent'} />
-      <Routes />
+      <PackageProvider>
+        <StatusBar barStyle='light-content' backgroundColor={'transparent'} />
+        <Routes />
+      </PackageProvider>
     </ThemeProvider>
 
   )

@@ -1,89 +1,88 @@
-import { useNavigation } from "@react-navigation/native";
 import { StackScreenProps } from "@react-navigation/stack";
-import React from "react";
-import { View } from "react-native";
+import React, { useEffect, useState } from "react";
 import { useTheme } from "styled-components";
 import { CardPackage } from "../../components/cardsPackage";
 import { Header } from "../../components/Header";
+import { Load } from "../../components/Load";
 import { SearchBar } from "../../components/SearchBar";
+import { usePackages } from "../../hooks/packages";
 import { StackScreensParams } from "../../routes/stack.routes";
 import {
     Container,
     ButtonWrapper,
     ButtonAddPackage,
     IconAddPackage,
-    Content
+    Content,
+    ErrorContainer,
+    Retry
 } from './styles'
 
 type Props = StackScreenProps<StackScreensParams, 'Home'>;
 
 export function Home({ route, navigation }: Props) {
-   
-    function handleAddPackage() {
+    const theme = useTheme()
+    const { fetchPackagesInStorage, loading, packages } = usePackages()
+    const [isError, setIsError] = useState(false)
+
+    useEffect(() => {
+        fetchPackagesOnHomeScreen()
+    }, [])
+
+    async function fetchPackagesOnHomeScreen() {
+        isError && setIsError(false)
+
+        try {
+            await fetchPackagesInStorage()
+
+        } catch (e: any) {
+            setIsError(true)
+            console.log(e)
+        }
+    }
+
+    function handleNavigateAddPackage() {
         navigation.navigate('AddPackage')
     }
 
-    const theme = useTheme()
+    function handleNavigatePackageDetails(item: any) {
+        navigation.navigate('PackageDetails', { item })
+    }
+
+    if (loading) {
+        return <Load />
+    }
+
     return (
         <Container>
             <Header title="Minhas Encomendas" />
             <SearchBar />
-            <Content>
-                <CardPackage myPackage={
-                    {
-                        name: 'Computador',
-                        lastStatus: 'Encaminhado para salvador-BA, 21/05/2022',
-                        trackCode: 'BR54453425485SE'
-                    }
-                } />
 
-                <CardPackage myPackage={
-                    {
-                        name: 'Cadeira Gamer',
-                        lastStatus: 'Objeto entregue ao destinatário, 15/05/2022',
-                        trackCode: 'BR54453425435SW'
-                    }
-                } />
+            {isError ? (
+                <ErrorContainer>
+                    <Retry>Error ao carregar suas encomendas. Tentar Novamente</Retry>
+                </ErrorContainer>
 
-                <CardPackage myPackage={
-                    {
-                        name: 'Livro Clean Code',
-                        lastStatus: 'Encaminhado para Eunapólis-BA, 15/05/2022',
-                        trackCode: 'BR84453488485SE'
-                    }
-                } />
-                <CardPackage myPackage={
-                    {
-                        name: 'Livro Clean Code',
-                        lastStatus: 'Encaminhado para Eunapólis-BA, 15/05/2022',
-                        trackCode: 'BR84453488485SE'
-                    }
-                } />
-                <CardPackage myPackage={
-                    {
-                        name: 'Livro Clean Code',
-                        lastStatus: 'Encaminhado para Eunapólis-BA, 15/05/2022',
-                        trackCode: 'BR84453488485SE'
-                    }
-                } />
-                <CardPackage myPackage={
-                    {
-                        name: 'Livro Clean Code',
-                        lastStatus: 'Encaminhado para Eunapólis-BA, 15/05/2022',
-                        trackCode: 'BR84453488485SE'
-                    }
-                } />
-                <CardPackage myPackage={
-                    {
-                        name: 'Livro Clean Code',
-                        lastStatus: 'Encaminhado para Eunapólis-BA, 15/05/2022',
-                        trackCode: 'BR84453488485SE'
-                    }
-                } />
-            </Content>
+            ) : (
+                <Content
+                    data={packages}
+                    keyExtractor={(item) => item.codObjeto}
+                    renderItem={({ item }) => <CardPackage
+                        onPress={() => {
+                            handleNavigatePackageDetails({
+                                codObjeto: 'BR54453425485SE'
+                            })
+                        }}
+                        myPackage={
+                            item
+                        } />}
+                />
+            )
+
+            }
+
             <ButtonWrapper>
                 <ButtonAddPackage
-                    onPress={handleAddPackage}
+                    onPress={handleNavigateAddPackage}
                 >
                     <IconAddPackage
                         name={'add'}
@@ -92,7 +91,9 @@ export function Home({ route, navigation }: Props) {
                     />
                 </ButtonAddPackage>
             </ButtonWrapper>
+
         </Container>
+
 
     )
 }

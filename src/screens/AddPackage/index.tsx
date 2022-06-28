@@ -13,21 +13,45 @@ import {
 } from './styles';
 
 import { Button } from '../../components/Form/Button';
+import { usePackages } from '../../hooks/packages';
+import { StackScreenProps } from '@react-navigation/stack';
+import { StackScreensParams } from '../../routes/stack.routes';
+import { Alert } from 'react-native';
+import { Load } from '../../components/Load';
 
 const schema = Yup.object().shape({
     name: Yup
         .string()
         .required('Nome é obrigatório'),
-    trackCode: Yup
+    codObject: Yup
         .string()
         .required('O Código é obrigatório'),
 })
 
-export function AddPackage() {
+type Props = StackScreenProps<StackScreensParams, 'AddPackage'>;
+
+export function AddPackage({ route, navigation }: Props) {
+
+    const { addPackages, loading } = usePackages()
 
     const { control, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: yupResolver(schema)
     })
+
+    async function submitNewPackage(data: { name: string, codObject: string }) {
+
+        try {
+            await addPackages(data.name, data.codObject)
+            navigation.navigate('Home')
+        } catch (e) {
+            Alert.alert('Ops', 'Ocorreu um erro ao adicionar sua encomenda por favor tente novamente')
+            console.log(e)
+        }
+    }
+
+    if (loading) {
+        return <Load />
+    }
 
     return (
         <Container>
@@ -47,14 +71,15 @@ export function AddPackage() {
                     <Label>Código de Rastreio</Label>
                     <InputForm
                         control={control}
-                        name='trackCode'
+                        name='codObject'
                         placeHolder='Ex: BR1234567FN'
                         autoCapitalize='sentences'
                         autoCorrect={false}
-                        error={errors.trackCode && errors.trackCode.message}
+                        error={errors.codObject && errors.codObject.message}
                     />
                 </Fields>
                 <Button
+                    onPress={handleSubmit(submitNewPackage)}
                     title='Salvar'
                 />
             </Form>

@@ -3,15 +3,19 @@ import {
     Container,
     Icon,
     Title,
-    Content
+    Content,
+    Subtitle,
+    TextsWrapper,
+    TitleWrapper
 } from './styles'
 
 type Props = {
     title: string;
-    goBack?: boolean
+    goBack?: boolean;
+    subtitle?: string;
 }
 
-export function Header({ title, goBack }: Props) {
+export function Header({ title, goBack, subtitle }: Props) {
 
     return (
         <Container>
@@ -26,9 +30,16 @@ export function Header({ title, goBack }: Props) {
             )
             }
 
-            <Title>
-                {title}
-            </Title>
+            <TextsWrapper>
+                <TitleWrapper>
+                    <Title>
+                        {title}
+                    </Title>
+                </TitleWrapper>
+
+                {subtitle && <Subtitle>{subtitle}</Subtitle>}
+            </TextsWrapper>
+
             <Content />
 
 
