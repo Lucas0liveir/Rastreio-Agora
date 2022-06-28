@@ -13,9 +13,10 @@ type Props = {
     title: string;
     goBack?: boolean;
     subtitle?: string;
+    detailScreen?: boolean;
 }
 
-export function Header({ title, goBack, subtitle }: Props) {
+export function Header({ title, goBack, subtitle, detailScreen }: Props) {
 
     return (
         <Container>
@@ -32,7 +33,7 @@ export function Header({ title, goBack, subtitle }: Props) {
 
             <TextsWrapper>
                 <TitleWrapper>
-                    <Title>
+                    <Title detailScreen={detailScreen}>
                         {title}
                     </Title>
                 </TitleWrapper>

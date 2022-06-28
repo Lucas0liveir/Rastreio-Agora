@@ -19,7 +19,7 @@ export function PackageDetails({ route, navigation }: Props) {
 
     return (
         <Container>
-            <Header goBack title={item.trackCod} subtitle={'Código'} />
+            <Header detailScreen goBack title={item.codObjeto} subtitle={'Código'} />
             <Content
                 data={[1, 2, 3]}
                 keyExtractor={(item) => String(item)}

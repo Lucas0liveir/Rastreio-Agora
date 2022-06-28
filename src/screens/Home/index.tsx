@@ -69,7 +69,7 @@ export function Home({ route, navigation }: Props) {
                     renderItem={({ item }) => <CardPackage
                         onPress={() => {
                             handleNavigatePackageDetails({
-                                codObjeto: 'BR54453425485SE'
+                               ...item
                             })
                         }}
                         myPackage={

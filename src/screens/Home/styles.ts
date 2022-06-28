@@ -39,7 +39,7 @@ export const ErrorContainer = styled.TouchableOpacity`
 export const Retry = styled.Text`
     font-family: ${({ theme }) => theme.fonts.regular};
     font-size: ${RFValue(14)}px;
-    color: ${({ theme }) => theme.colors.text}
+    color: ${({ theme }) => theme.colors.text};
 `
 
 

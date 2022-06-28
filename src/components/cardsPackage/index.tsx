@@ -1,5 +1,4 @@
 import React from "react";
-import { BorderlessButtonProps } from "react-native-gesture-handler";
 import { PackageDTO } from "../../dtos/PackageDTOS";
 import dayjs from "dayjs";
 import {
@@ -15,8 +14,9 @@ import {
     DateInfo,
     DateHourInfo
 } from './styles'
+import { TouchableOpacityProps } from "react-native";
 
-interface Props extends BorderlessButtonProps {
+interface Props extends TouchableOpacityProps {
     myPackage: PackageDTO
 }
 

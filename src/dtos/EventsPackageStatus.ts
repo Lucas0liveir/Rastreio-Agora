@@ -4,13 +4,34 @@ export interface EventsPackageStatus {
     dtHrCriado: string;
     tipo?: string;
     unidade: Unidade;
+    unidadeDestino?: UnidadeDestino;
     urlIcone: string;
 }
 
 type Unidade = {
+    codSro?: string;
+    nome?: string;
     endereco: {
+        bairro?: string;
+        cep?: string;
         cidade: string;
-        uf: string
+        logradouro?: string;
+        numero?: string;
+        uf: string;
+    },
+    tipo: string
+}
+
+type UnidadeDestino = {
+    codSro?: string;
+    nome?: string;
+    endereco: {
+        bairro?: string;
+        cep?: string;
+        cidade: string;
+        logradouro?: string;
+        numero?: string;
+        uf: string;
     },
     tipo: string
 }

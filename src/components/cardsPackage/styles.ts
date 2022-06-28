@@ -1,12 +1,11 @@
 import styled from 'styled-components/native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'
-import { BorderlessButton } from 'react-native-gesture-handler'
 
 type PropsText = {
     type: string
 }
 
-export const Container = styled(BorderlessButton)`
+export const Container = styled.TouchableOpacity`
     margin: 8px 0;
     border-radius: 10px;
     background-color: ${({ theme }) => theme.colors.shape}; 
