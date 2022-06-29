@@ -14,12 +14,7 @@
       "**/*"
     ],
     "plugins": [
-      [
-        "onesignal-expo-plugin",
-        {
-          "mode": "development"
-        }
-      ]
+      "@notifee/react-native"
     ]
   }
 }
