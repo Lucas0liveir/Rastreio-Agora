@@ -1,5 +1,6 @@
 export interface EventsPackageStatus {
     codigo: string;
+    detalhe?: string;
     descricao: string;
     dtHrCriado: string;
     tipo?: string;

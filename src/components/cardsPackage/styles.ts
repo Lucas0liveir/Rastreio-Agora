@@ -24,6 +24,7 @@ export const PackageLastStatus = styled.Text<PropsText>`
     color: ${({ theme, type }) => type === 'sucess' ? theme.colors.sucess : theme.colors.text_dark};
     text-align: center;
     font-size: 14px;
+    margin-left: 5px;
     font-weight: bold;
     font-family: ${({ theme }) => theme.fonts.regular};
 `

@@ -1,4 +1,6 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { TouchableOpacity } from 'react-native';
 import {
     Container,
     Icon,
@@ -18,16 +20,25 @@ type Props = {
 
 export function Header({ title, goBack, subtitle, detailScreen }: Props) {
 
+    const navigation = useNavigation<any>()
+
+    function handleBack() {
+        navigation.goBack()
+    }
     return (
-        <Container>
-            {!goBack ? (
-                <Icon
-                    name='menu'
-                />
-            ) : (
-                <Icon
-                    name='arrow-left'
-                />
+        <Container
+            goBack={goBack}
+        >
+            {goBack && (
+                <TouchableOpacity
+                    onPress={handleBack}
+                >
+                    <Icon
+                        style={{ padding: 5 }}
+                        name='arrow-left'
+                    />
+                </TouchableOpacity>
+
             )
             }
 

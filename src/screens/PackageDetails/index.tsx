@@ -21,9 +21,9 @@ export function PackageDetails({ route, navigation }: Props) {
         <Container>
             <Header detailScreen goBack title={item.codObjeto} subtitle={'Código'} />
             <Content
-                data={[1, 2, 3]}
-                keyExtractor={(item) => String(item)}
-                renderItem={({ item }) => <CardStatus />}
+                data={item.eventos}
+                keyExtractor={(_, index) => String(index)}
+                renderItem={({ item }) => <CardStatus events={item}/>}
                 ItemSeparatorComponent={() => <Line />}
             />
 

@@ -54,12 +54,14 @@ export function Home({ route, navigation }: Props) {
 
     return (
         <Container>
-            <Header title="Minhas Encomendas" />
+            <Header title="Rastreio Agora" />
             <SearchBar />
 
             {isError ? (
-                <ErrorContainer>
-                    <Retry>Error ao carregar suas encomendas. Tentar Novamente</Retry>
+                <ErrorContainer
+                onPress={fetchPackagesOnHomeScreen}
+                >
+                    <Retry>Erro ao carregar suas encomendas. Clique aqui para tentar Novamente</Retry>
                 </ErrorContainer>
 
             ) : (

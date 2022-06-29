@@ -1,5 +1,5 @@
 import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 import { Feather } from '@expo/vector-icons';
 import { TextProps, Text } from 'react-native'
 
@@ -7,14 +7,17 @@ type PropsText = {
     detailScreen?: boolean
 }
 
-export const Container = styled.View`
+type PropsHeader = {
+    goBack?: boolean
+}
+
+export const Container = styled.View<PropsHeader>`
     height: 60px;
     width: 100%;
     align-items: center;
     flex-direction: row;
-    justify-content: space-between;
     background-color: ${({ theme }) => theme.colors.attention};
-
+    ${({ goBack }) => goBack ? css`justify-content: space-between;` :  css`justify-content: center;`};
 `
 
 export const Content = styled.View`

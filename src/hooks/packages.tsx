@@ -30,7 +30,15 @@ function PackageProvider({ children }: PackageProviderProps) {
 
             const response = await api.post('/track', { name, codes: [codes] })
             response.data[0].name = name
-            setPackages(response.data)
+            setPackages([...packages, ...response.data])
+
+            const data = await AsyncStorage.getItem('@app-rastreioAgora:packages')
+            const dataFormatted = JSON.parse(data)
+
+            if (data) {
+                await AsyncStorage.setItem('@app-rastreioAgora:packages', JSON.stringify([...dataFormatted, ...response.data]))
+                return
+            }
 
             await AsyncStorage.setItem('@app-rastreioAgora:packages', JSON.stringify(response.data))
 
@@ -38,7 +46,6 @@ function PackageProvider({ children }: PackageProviderProps) {
             console.log(e)
             throw new Error(e)
         } finally {
-
             setLoading(false)
         }
 

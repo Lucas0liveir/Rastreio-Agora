@@ -15,6 +15,8 @@ import {
     DateHourInfo
 } from './styles'
 import { TouchableOpacityProps } from "react-native";
+import { IconStatus } from "../IconStatus";
+import { getTypeStatus } from "../../Utils/getTypeStatus";
 
 interface Props extends TouchableOpacityProps {
     myPackage: PackageDTO
@@ -22,46 +24,34 @@ interface Props extends TouchableOpacityProps {
 
 export function CardPackage({ myPackage, ...rest }: Props) {
 
-    console.log(myPackage)
-
     return (
         <Container
             {...rest}
         >
             <ContainerDateInfo>
                 <DateInfo>
-                    {dayjs(myPackage.eventos[0].dtHrCriado).format('DD/MM/YYYY')}
+                    {dayjs(myPackage?.eventos[0].dtHrCriado).format('DD/MM/YYYY')}
                 </DateInfo>
                 <DateHourInfo>
-                    {dayjs(myPackage.eventos[0].dtHrCriado).format('HH:mm:ss')}
+                    {dayjs(myPackage?.eventos[0].dtHrCriado).format('HH:mm:ss')}
                 </DateHourInfo>
             </ContainerDateInfo>
             <Content>
                 <PackageName>
-                    {myPackage.name}
+                    {myPackage?.name}
                 </PackageName>
                 <ContainerStatus>
-                    {String(myPackage?.eventos[0]?.descricao).includes('entregue') ? (
-                        <IconStatusReceived
-                            name={'checkcircle'}
-                        />
-                    ) : (
-                        <IconStatusRefer
-                            name='truck'
-                        />
-                    )
-
-                    }
+                    <IconStatus size={20} type={getTypeStatus(myPackage?.eventos[0]?.descricao)} />
 
                     <PackageLastStatus
-                        type={String(myPackage.eventos[0].descricao).includes('entregue') ? 'sucess' : ''}
+                        type={String(myPackage?.eventos[0].descricao).includes('entregue') ? 'sucess' : ''}
                     >
-                        {myPackage.eventos[0].descricao}
+                        {myPackage?.eventos[0].descricao}
                     </PackageLastStatus>
                 </ContainerStatus>
 
                 <PackageCode>
-                    {myPackage.codObjeto}
+                    {myPackage?.codObjeto}
                 </PackageCode>
             </Content>
 

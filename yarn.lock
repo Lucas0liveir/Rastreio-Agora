@@ -5728,6 +5728,11 @@ react-native-codegen@^0.0.17:
     jscodeshift "^0.13.1"
     nullthrows "^1.1.1"
 
+react-native-country-flag@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/react-native-country-flag/-/react-native-country-flag-1.1.6.tgz#ca2aae3752f6e8621fab461e50a60aa7a9a4528f"
+  integrity sha512-0PJ8W6o0+fQzDAnT5obzdPh+PsaYWRwRrIvOFwgqhU7Y/nu+Tkp26CSA69CktBJUB+8/JrAQAKqjDqXT/fJ2oQ==
+
 react-native-gesture-handler@~2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-2.2.1.tgz#672258aa5a40c92a97c736bdde0a8bd6c8c6c692"

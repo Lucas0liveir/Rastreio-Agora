@@ -3,11 +3,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { Home } from "../screens/Home";
 import { AddPackage } from "../screens/AddPackage";
 import { PackageDetails } from "../screens/PackageDetails";
+import { PackageDTO } from "../dtos/PackageDTOS";
 
 export type StackScreensParams = {
     Home: undefined;
     AddPackage: undefined;
-    PackageDetails: { item?: any }
+    PackageDetails: { item?: PackageDTO }
 }
 
 const { Navigator, Screen } = createStackNavigator<StackScreensParams>()
