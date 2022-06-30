@@ -1,4 +1,3 @@
-
 import 'react-native-gesture-handler';
 import React, { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
@@ -10,17 +9,16 @@ import {
   Poppins_500Medium,
   Poppins_700Bold
 } from '@expo-google-fonts/poppins'
-import { StatusBar } from 'react-native';
+import { NativeModules, StatusBar } from 'react-native';
 import { Routes } from './src/routes';
-import { PackageProvider, usePackages } from './src/hooks/packages';
-import { Load } from './src/components/Load';
+import { PackageProvider } from './src/hooks/packages';
 
 export default function App() {
 
-  const { loading } = usePackages()
+
 
   useEffect(() => {
-  
+    NativeModules.BackgroundWorkManager.startBackgroundWork();
   }, [])
 
   const [fontsLoaded] = useFonts({
