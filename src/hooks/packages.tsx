@@ -28,7 +28,7 @@ function PackageProvider({ children }: PackageProviderProps) {
 
         try {
 
-            const response = await api.post('/track', { name, codes: [codes] })
+            const response = await api.post('/track', { codes: [codes] })
             response.data[0].name = name
             setPackages([...packages, ...response.data])
 
