@@ -1,14 +1,14 @@
+import { useFocusEffect } from "@react-navigation/native";
+import { StackScreenProps } from "@react-navigation/stack";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTheme } from "styled-components";
 import { CardPackage } from "../../components/cardsPackage";
-import { useFocusEffect } from "@react-navigation/native";
-import { StackScreenProps } from "@react-navigation/stack";
 import { Header } from "../../components/Header";
 import { Load } from "../../components/Load";
 import { SearchBar } from "../../components/SearchBar";
+import { PackageDTO } from "../../dtos/PackageDTOS";
 import { usePackages } from "../../hooks/packages";
 import { StackScreensParams } from "../../routes/stack.routes";
-import { PackageDTO } from "../../dtos/PackageDTOS";
 import {
     Container,
     ButtonWrapper,
@@ -19,9 +19,9 @@ import {
     Retry
 } from './styles'
 
-type Props = StackScreenProps<StackScreensParams, 'Home'>;
+type Props = StackScreenProps<StackScreensParams, 'PackagesDelivered'>;
 
-export function Home({ route, navigation }: Props) {
+export function PackagesDelivered({ route, navigation }: Props) {
     const theme = useTheme()
     const { fetchPackagesInStorage, loading, packages } = usePackages()
     const [isError, setIsError] = useState(false)
@@ -29,17 +29,14 @@ export function Home({ route, navigation }: Props) {
     const [packagesSearch, setPackagesSearch] = useState<PackageDTO[]>([])
 
     useEffect(() => {
-        const packagesFiltered = packages.filter(item => !item.eventos[0]?.descricao.includes('entregue ao destinatário'))
+        const packagesFiltered = packages.filter(item => item.eventos[0]?.descricao.includes('entregue ao destinatário'))
         setFilteredPackages(packagesFiltered)
      }, [packages])
 
     useFocusEffect(useCallback(() => {
         fetchPackagesOnHomeScreen()
-
-        const packagesFiltered = packages.filter(item => !item.eventos[0]?.descricao.includes('entregue ao destinatário'))
-        setFilteredPackages(packagesFiltered)
-
     }, []))
+
 
     function onSearchPackage(name: string) {
 
@@ -71,7 +68,8 @@ export function Home({ route, navigation }: Props) {
         isError && setIsError(false)
 
         try {
-            await fetchPackagesInStorage()
+            await fetchPackagesInStorage('entregue ao destinatário')
+
         } catch (e: any) {
             setIsError(true)
             console.log(e)
@@ -93,6 +91,7 @@ export function Home({ route, navigation }: Props) {
     return (
         <Container>
             <Header title="Rastreio Agora" />
+
             <SearchBar
                 onChangeText={onSearchPackage}
             />

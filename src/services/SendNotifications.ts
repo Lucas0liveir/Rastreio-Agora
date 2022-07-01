@@ -37,7 +37,7 @@ export async function checkUpdateOnPackagesStatus() {
     const packages = JSON.parse(response) as PackageDTO[]
 
     //Filtra somente os objetos que ainda não foram entregues.
-    const packagesFiltered = packages.filter(item => !item.eventos[0].descricao.includes('entregue ao destinatário'))
+    const packagesFiltered = packages.filter(item => !item.eventos[0]?.descricao.includes('entregue ao destinatário'))
 
     //Pega todos os codigos de rastreio
     const objectCodes = [...packagesFiltered
@@ -57,17 +57,15 @@ export async function checkUpdateOnPackagesStatus() {
       await onDisplayNotification()
     }
 
-    return
-
   } catch (e) {
     console.log(e)
   }
 }
 
-function diffBetweenPackages(packages: PackageDTO[], newPackages: PackageDTO[]) {
+export function diffBetweenPackages(packages: PackageDTO[], newPackages: PackageDTO[]) {
 
   for (let i = 0; i < newPackages.length; i++) {
-    if (newPackages[i].eventos.length !== packages[i].eventos.length) {
+    if (newPackages[i].eventos?.length !== packages[i].eventos?.length) {
       return true
     }
   }

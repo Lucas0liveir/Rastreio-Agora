@@ -3,6 +3,7 @@ import { EventsPackageStatus } from "./EventsPackageStatus";
 export interface PackageDTO {
     name: string;
     codObjeto: string;
+    mensagem?: string;
     eventos: EventsPackageStatus[];
     modalidade: string;
     tipoPostal: {

@@ -10,6 +10,7 @@ export default {
         shape: '#ffffff',
         info_attention: '#ffbc40',
         title: '#363F5F',
+        status: 'rgba(255,255,0, 0.4)',
         text: '#969CB2',
         text_dark: '#000000',
         text_detail: '#B0B0B0',

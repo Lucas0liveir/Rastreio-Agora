@@ -1,4 +1,5 @@
 import React from 'react';
+import { TextInputProps } from 'react-native';
 import { useTheme } from 'styled-components';
 
 import {
@@ -7,14 +8,19 @@ import {
     IconSearch,
 } from './styles';
 
-export function SearchBar() {
+interface Props extends TextInputProps {
+
+}
+
+export function SearchBar({ ...rest }: Props) {
 
     const theme = useTheme()
 
     return (
         <Container>
             <Input
-            placeholder='pesquise aqui...'
+                {...rest}
+                placeholder='pesquise aqui...'
             />
             <IconSearch
                 name='search'

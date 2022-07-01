@@ -1,14 +1,19 @@
 import styled from 'styled-components/native'
 import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons'
+import { Dimensions } from 'react-native'
 
 type PropsText = {
     type: string
 }
 
-export const Container = styled.TouchableOpacity`
+type StatusProps = {
+    isNewStatus?: boolean;
+}
+
+export const Container = styled.View<StatusProps>`
     margin: 8px 0;
     border-radius: 10px;
-    background-color: ${({ theme }) => theme.colors.shape}; 
+    background-color: ${({ theme, isNewStatus }) => isNewStatus ? theme.colors.status : theme.colors.shape}; 
     padding: 20px 0;
     flex-direction: row;
 `
@@ -22,9 +27,8 @@ export const PackageName = styled.Text`
 
 export const PackageLastStatus = styled.Text<PropsText>`
     color: ${({ theme, type }) => type === 'sucess' ? theme.colors.sucess : theme.colors.text_dark};
-    text-align: center;
-    font-size: 14px;
-    margin-left: 5px;
+    text-align: left;
+    font-size: 13px;
     font-weight: bold;
     font-family: ${({ theme }) => theme.fonts.regular};
 `
@@ -59,7 +63,9 @@ export const ContainerDateInfo = styled.View`
     padding: 0 10px;
 `
 
-export const Content = styled.View``
+export const Content = styled.TouchableOpacity<any>`
+    margin-left: 15px;
+`
 
 export const DateInfo = styled.Text`
     color: ${({ theme }) => theme.colors.text_detail};
@@ -73,4 +79,20 @@ export const DateHourInfo = styled.Text`
     text-align: center;
     font-family: ${({ theme }) => theme.fonts.regular};
 `
+
+export const OptionWrapper = styled.View`
+    margin-left: 20px;
+    align-items: center;
+    justify-content: center;
+`
+
+export const OptionButton = styled.TouchableOpacity``
+
+export const Options = styled.View`
+    width: 50px;
+    align-items: flex-end;
+    justify-content: center;
+`
+
+export const ButtonDelete = styled.TouchableOpacity``
 

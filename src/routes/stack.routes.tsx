@@ -4,11 +4,13 @@ import { Home } from "../screens/Home";
 import { AddPackage } from "../screens/AddPackage";
 import { PackageDetails } from "../screens/PackageDetails";
 import { PackageDTO } from "../dtos/PackageDTOS";
+import { PackagesDelivered } from "../screens/PackagesDelivered";
 
 export type StackScreensParams = {
     Home: undefined;
     AddPackage: undefined;
-    PackageDetails: { item?: PackageDTO }
+    PackageDetails: { item?: PackageDTO };
+    PackagesDelivered: undefined;
 }
 
 const { Navigator, Screen } = createStackNavigator<StackScreensParams>()
@@ -22,18 +24,7 @@ export function StackScreens() {
                 headerShown: false
             }}
         >
-            <Screen
-                name={'Home'}
-                component={Home}
-            />
-            <Screen
-                name={'AddPackage'}
-                component={AddPackage}
-            />
-            <Screen
-                name={'PackageDetails'}
-                component={PackageDetails}
-            />
+           
         </Navigator>
     )
 }

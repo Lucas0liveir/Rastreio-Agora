@@ -12,7 +12,7 @@ export const Container = styled.View`
   justify-content: space-between;
 `;
 
-export const Input = styled.TextInput`
+export const Input = styled.TextInput<any>`
     height: 100%;
     width: 90%;
 `

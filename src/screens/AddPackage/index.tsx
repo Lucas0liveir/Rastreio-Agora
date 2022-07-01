@@ -18,6 +18,7 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { StackScreensParams } from '../../routes/stack.routes';
 import { Alert } from 'react-native';
 import { Load } from '../../components/Load';
+import { PackageDTO } from '../../dtos/PackageDTOS';
 
 const schema = Yup.object().shape({
     name: Yup
@@ -34,18 +35,24 @@ export function AddPackage({ route, navigation }: Props) {
 
     const { addPackages, loading } = usePackages()
 
-    const { control, handleSubmit, formState: { errors }, reset } = useForm({
+    const { control, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     })
 
     async function submitNewPackage(data: { name: string, codObject: string }) {
-
         try {
             await addPackages(data.name, data.codObject)
             navigation.navigate('Home')
         } catch (e) {
-            Alert.alert('Ops', 'Ocorreu um erro ao adicionar sua encomenda por favor tente novamente')
-            console.log(e)
+            console.log(e.message)
+            switch (e.message) {
+                case 'Error: error: encomenda repetida':
+                    Alert.alert('opss', 'Você já adicionou esta encomenda')
+                    return;
+                default:
+                    Alert.alert('Ops', 'Ocorreu um erro ao adicionar sua encomenda por favor tente novamente')
+            }
+
         }
     }
 

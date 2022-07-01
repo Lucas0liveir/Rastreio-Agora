@@ -8,7 +8,7 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
     try {
         const receiveData = await checkUpdateOnPackagesStatus()
 
-        return receiveData ? BackgroundFetch.BackgroundFetchResult.NewData : BackgroundFetch.BackgroundFetchResult.NoData
+        return BackgroundFetch.BackgroundFetchResult.NewData
 
     } catch (e) {
         console.log(e)
@@ -17,7 +17,7 @@ TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
 
 async function registerBackgroundFetchAsync() {
     return BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
-        minimumInterval: 5,
+        minimumInterval: 60 * 3,
         stopOnTerminate: false, // android only,
         startOnBoot: true, // android only
     });
