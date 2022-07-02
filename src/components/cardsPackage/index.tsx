@@ -90,7 +90,7 @@ export function CardPackage({ myPackage, ...rest }: Props) {
 
     return (
         <Container
-
+            isNewStatus={myPackage?.eventos[0]?.isNewStatus ? myPackage?.eventos[0]?.isNewStatus : false}
         >
             {!myPackage?.eventos[0]?.dtHrCriado && (
                 <View style={{ marginLeft: 30, width: RFValue(300) }}>
@@ -144,7 +144,7 @@ export function CardPackage({ myPackage, ...rest }: Props) {
                 (
                     <Content
                         {...rest}
-                        disabled={!!myPackage?.eventos[0]?.dtHrCriado}
+                        disabled={myPackage?.eventos[0]?.dtHrCriado ? false : true}
                     >
                         <PackageName>
                             {myPackage?.name}

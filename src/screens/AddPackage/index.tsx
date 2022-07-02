@@ -46,7 +46,7 @@ export function AddPackage({ route, navigation }: Props) {
         } catch (e) {
             console.log(e.message)
             switch (e.message) {
-                case 'Error: error: encomenda repetida':
+                case 'error: encomenda repetida':
                     Alert.alert('opss', 'Você já adicionou esta encomenda')
                     return;
                 default:

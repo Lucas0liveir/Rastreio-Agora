@@ -65,7 +65,8 @@ export async function checkUpdateOnPackagesStatus() {
 export function diffBetweenPackages(packages: PackageDTO[], newPackages: PackageDTO[]) {
 
   for (let i = 0; i < newPackages.length; i++) {
-    if (newPackages[i].eventos?.length !== packages[i].eventos?.length) {
+    if (newPackages[i].eventos?.length > packages[i].eventos?.length) {
+      console.log(newPackages[i].eventos?.length, packages[i].eventos?.length)
       return true
     }
   }

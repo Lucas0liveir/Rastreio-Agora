@@ -35,7 +35,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <PackageProvider>
-        <StatusBar barStyle='light-content' backgroundColor={'transparent'} />
+        <StatusBar barStyle='dark-content' backgroundColor={'transparent'} translucent />
         <Routes />
       </PackageProvider>
     </ThemeProvider>

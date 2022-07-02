@@ -14,6 +14,7 @@ type PropsHeader = {
 export const Container = styled.View<PropsHeader>`
     height: 60px;
     width: 100%;
+    margin-top: ${RFValue(40)}px;
     align-items: center;
     flex-direction: row;
     background-color: ${({ theme }) => theme.colors.attention};

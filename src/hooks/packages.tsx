@@ -25,18 +25,19 @@ function PackageProvider({ children }: PackageProviderProps) {
     const [packages, setPackages] = useState<PackageDTO[]>([])
     const [loading, setLoading] = useState(false)
 
-    async function addPackages(name: string, codes: string) {
+    async function addPackages(name: string, code: string) {
+
+        if (packages.findIndex(item => item.codObjeto === String(code).toUpperCase().trim()) > -1) {
+            throw new Error('error: encomenda repetida')
+        }
 
         setLoading(true)
 
         try {
 
-            if (packages.findIndex(item => item.codObjeto === codes[0]) > -1) {
 
-                throw new Error('error: encomenda repetida')
-            }
 
-            const response = await api.post('/track', { codes: [String(codes).toUpperCase()] })
+            const response = await api.post('/track', { codes: [String(code).toUpperCase().trim()] })
             response.data[0].name = name
 
             if (!response.data[0].eventos) {
@@ -65,7 +66,7 @@ function PackageProvider({ children }: PackageProviderProps) {
 
     }
 
-    async function fetchPackagesInStorage(option?: string) {
+    async function fetchPackagesInStorage() {
         setLoading(true)
 
         try {
@@ -81,15 +82,19 @@ function PackageProvider({ children }: PackageProviderProps) {
                 const isDiff = diffBetweenPackages(packagesData, data)
 
                 if (isDiff) {
+                    console.log('e')
                     data.forEach((item, index) => {
                         if (item.eventos?.length > 0) {
-                            packagesData[index].eventos = item.eventos
+                            packagesData[index].eventos = [...item.eventos]
                             packagesData[index].eventos[0].isNewStatus = true
                         }
 
                     })
+
+                    await AsyncStorage.setItem('@app-rastreioAgora:packages', JSON.stringify(packagesData))
                 }
             }
+            
             setPackages(packagesData)
 
 
