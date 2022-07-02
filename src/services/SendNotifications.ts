@@ -14,13 +14,8 @@ async function onDisplayNotification() {
     title: 'Teste',
     body: 'Seu pacote foi atualizado',
     android: {
-      channelId,
-      // smallIcon: 'name-of-a-small-icon', // optional, defaults to 'ic_launcher'.
-      // pressAction is needed if you want the notification to open the app when pressed
-      // pressAction: {
-      //   id: 'default',
-      // },
-    },
+      channelId
+    }
   });
 }
 
@@ -66,7 +61,6 @@ export function diffBetweenPackages(packages: PackageDTO[], newPackages: Package
 
   for (let i = 0; i < newPackages.length; i++) {
     if (newPackages[i].eventos?.length > packages[i].eventos?.length) {
-      console.log(newPackages[i].eventos?.length, packages[i].eventos?.length)
       return true
     }
   }

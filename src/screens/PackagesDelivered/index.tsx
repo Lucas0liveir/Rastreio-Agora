@@ -23,7 +23,7 @@ type Props = StackScreenProps<StackScreensParams, 'PackagesDelivered'>;
 
 export function PackagesDelivered({ route, navigation }: Props) {
     const theme = useTheme()
-    const { fetchPackagesInStorage, loading, packages } = usePackages()
+    const { fetchPackagesInStorage, updateEventStatus, loading, packages } = usePackages()
     const [isError, setIsError] = useState(false)
     const [filteredPackages, setFilteredPackages] = useState<PackageDTO[]>([])
     const [packagesSearch, setPackagesSearch] = useState<PackageDTO[]>([])
@@ -31,7 +31,7 @@ export function PackagesDelivered({ route, navigation }: Props) {
     useEffect(() => {
         const packagesFiltered = packages.filter(item => item.eventos[0]?.descricao.includes('entregue ao destinatário'))
         setFilteredPackages(packagesFiltered)
-     }, [packages])
+    }, [packages])
 
     useFocusEffect(useCallback(() => {
         fetchPackagesOnHomeScreen()
@@ -80,8 +80,23 @@ export function PackagesDelivered({ route, navigation }: Props) {
         navigation.navigate('AddPackage')
     }
 
-    function handleNavigatePackageDetails(item: any) {
-        navigation.navigate('PackageDetails', { item })
+    async function handleNavigatePackageDetails(item: PackageDTO, index: number) {
+        try {
+            await handleUpdateEventStatus(index)
+            navigation.navigate('PackageDetails', { item })
+        } catch (e) {
+
+        }
+    }
+
+    async function handleUpdateEventStatus(index: number) {
+        try {
+
+            await updateEventStatus(index)
+
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     if (loading) {
@@ -107,11 +122,11 @@ export function PackagesDelivered({ route, navigation }: Props) {
                 <Content
                     data={packagesSearch.length > 0 ? packagesSearch : filteredPackages}
                     keyExtractor={(item) => item.codObjeto}
-                    renderItem={({ item }) => <CardPackage
+                    renderItem={({ item, index }) => <CardPackage
                         onPress={() => {
                             handleNavigatePackageDetails({
                                 ...item
-                            })
+                            }, index)
                         }}
                         myPackage={
                             item

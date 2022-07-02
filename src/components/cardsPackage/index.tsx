@@ -41,7 +41,7 @@ if (Platform.OS === 'android') {
 
 export function CardPackage({ myPackage, ...rest }: Props) {
     const theme = useTheme()
-    const { packages, setPackages, fetchPackagesInStorage } = usePackages()
+    const { packages, fetchPackagesInStorage } = usePackages()
     const [options, setOptions] = useState(false)
 
 
@@ -49,7 +49,6 @@ export function CardPackage({ myPackage, ...rest }: Props) {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
         setOptions(state => !state)
     }
-
 
 
     async function confirmDelete(name: string, cod: string) {
@@ -72,7 +71,6 @@ export function CardPackage({ myPackage, ...rest }: Props) {
     }
 
     async function handleDeletePackage(cod: string) {
-        console.log('=>', cod)
         const index = packages.findIndex(item => item.codObjeto === cod)
         const updatePackage = packages
         updatePackage.splice(index, 1)

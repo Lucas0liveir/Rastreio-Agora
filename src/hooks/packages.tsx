@@ -15,6 +15,7 @@ interface IPackageContext {
     loading: boolean;
     fetchPackagesInStorage(option?: string): Promise<void>;
     addPackages(name: string, code: string): Promise<void>;
+    updateEventStatus(indexPackage: number): Promise<void>;
 }
 
 const PackageContext = createContext({} as IPackageContext)
@@ -82,7 +83,6 @@ function PackageProvider({ children }: PackageProviderProps) {
                 const isDiff = diffBetweenPackages(packagesData, data)
 
                 if (isDiff) {
-                    console.log('e')
                     data.forEach((item, index) => {
                         if (item.eventos?.length > 0) {
                             packagesData[index].eventos = [...item.eventos]
@@ -94,7 +94,7 @@ function PackageProvider({ children }: PackageProviderProps) {
                     await AsyncStorage.setItem('@app-rastreioAgora:packages', JSON.stringify(packagesData))
                 }
             }
-            
+
             setPackages(packagesData)
 
 
@@ -108,12 +108,23 @@ function PackageProvider({ children }: PackageProviderProps) {
 
     }
 
+    async function updateEventStatus(indexPackage: number) {
+        try {
+            const updatePackages = packages
+            updatePackages[indexPackage].eventos[0].isNewStatus = false
+            await AsyncStorage.setItem('@app-rastreioAgora:packages', JSON.stringify(updatePackages))
+        } catch (e) {
+            throw new Error(e)
+        }
+    }
+
 
     return (
         <PackageContext.Provider value={{
             fetchPackagesInStorage,
             setPackages,
             addPackages,
+            updateEventStatus,
             loading,
             packages
         }}>
